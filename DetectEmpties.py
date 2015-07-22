@@ -38,7 +38,7 @@ class DetectEmpties:
 
    #primary function, create a full list from DROID CSV
    #create a list of IDs belonging to just folders...
-   def detectEmpties(self, csv):
+   def detectEmpties(self, csv, pathblacklist, puidblacklist, zerobytefiles):
       droidcsv = droidCSVHandler()
       droidlist = droidcsv.readDROIDCSV(csv)
       folderIDlist = []
