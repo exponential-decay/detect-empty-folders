@@ -17,15 +17,15 @@ def readconfig(configfile):
    if config.has_section('blacklist'):
       if config.has_option('blacklist', 'filepaths'):
          configpaths = config.get('blacklist', 'filepaths')
-         if configpaths != False:
+         if configpaths.lower() != 'false':
             paths = configpaths.split(',')
       if config.has_option('blacklist', 'puids'):
          configpuids = config.get('blacklist', 'puids')
-         if configpuids != False:
+         if configpuids.lower() != 'false':
             puids = configpuids.split(',')
       if config.has_option('blacklist', 'zerobytefiles'):
          zerobytefiles = config.get('blacklist', 'zerobytefiles')
-         if zerobytefiles.lower() == 'False' or zerobytefiles == '':
+         if zerobytefiles.lower() == 'false' or zerobytefiles == '':
             zerobytes = False
          else:
             zerobytes = True
