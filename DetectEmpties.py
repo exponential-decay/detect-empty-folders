@@ -12,6 +12,8 @@ from droidcsvhandlerclass import *
 class DetectEmpties:
    #Consider merging into DROIDCSVHANDLER class...
 
+   emptylist = []
+
    #simulate deletion of file structure...
    def recurse_delete(self, droidlist, folderIDlist):
       empties = False
@@ -27,7 +29,7 @@ class DetectEmpties:
             for row in list(droidlist):
                if row['ID'] == id:
                   empties = True
-                  sys.stdout.write(row['FILE_PATH'] + " or its siblings contains zero FILE objects.\n")
+                  self.emptylist.append(row['FILE_PATH'])
                   droidlist.remove(row)   #remove empty folder
                   for folderid in list(folderIDlist):
                      if row['ID'] == folderid:
@@ -47,4 +49,8 @@ class DetectEmpties:
             folderIDlist.append(row['ID'])
 
       self.recurse_delete(droidlist, folderIDlist)
+      self.outputEmptyList()
 
+   def outputEmptyList(self):
+      for file in self.emptylist:
+         sys.stdout.write(file + " or its siblings contains zero FILE objects.\n") 
