@@ -13,6 +13,9 @@ class DetectEmpties:
    #Consider merging into DROIDCSVHANDLER class...
 
    emptylist = []
+   puidblacklist = []
+   pathblacklist = []
+   zerobytefiles = []
 
    #simulate deletion of file structure...
    def recurse_delete(self, droidlist, folderIDlist):
@@ -38,6 +41,11 @@ class DetectEmpties:
       if empties == True:
          self.recurse_delete(droidlist, folderIDlist)
 
+   def registerblacklists(self, pathblacklist, puidblacklist, zerobytefiles):
+      print pathblacklist
+      print puidblacklist
+      print zerobytefiles
+
    #primary function, create a full list from DROID CSV
    #create a list of IDs belonging to just folders...
    def detectEmpties(self, csv, pathblacklist, puidblacklist, zerobytefiles):
@@ -47,7 +55,8 @@ class DetectEmpties:
       for row in droidlist:
          if row['TYPE'] == 'Folder':
             folderIDlist.append(row['ID'])
-
+      
+      self.registerblacklists(pathblacklist, puidblacklist, zerobytefiles)
       self.recurse_delete(droidlist, folderIDlist)
       self.outputEmptyList()
 
