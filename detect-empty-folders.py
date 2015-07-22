@@ -20,7 +20,7 @@ def main():
    parser.add_argument('--csv', help='Single DROID CSV to read.', default=False, required=True)
    parser.add_argument('--blfilepath', help='CSV blacklist files to delete.', default=False, required=False)   
    parser.add_argument('--blpuid', help='CSV blacklist PUIDs to delete.', default=False, required=False)   
-   parser.add_argument('--blzeros', help='Remove zero byte files.', default=False, required=False)   
+   parser.add_argument('--blzeros', help='Remove zero byte files.', action="store_true")   
 
    if len(sys.argv)==1:
       parser.print_help()
