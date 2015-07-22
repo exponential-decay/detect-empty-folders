@@ -37,21 +37,26 @@ class DetectEmpties:
                   for folderid in list(folderIDlist):
                      if row['ID'] == folderid:
                         folderIDlist.remove(folderid)
-      
+                        
       if empties == True:
          self.recurse_delete(droidlist, folderIDlist)
 
-   def registerblacklists(self, pathblacklist, puidblacklist, zerobytefiles):
-      if pathblacklist != False:
-         self.pathblacklist = pathblacklist.split(',')
-      if puidblacklist != False:
-         self.puidblacklist = puidblacklist.split(',')
-      if zerobytefiles:
-         self.zerobytefiles = True
-
+   def removeblacklistitems(self, droidlist, folderIDlist):
+      if self.pathblacklist:
+         sys.stderr.write("Note: Using file path blacklists.\n")
+         for file in self.pathblacklist:
+            for item in list(droidlist):
+               if item['FILE_PATH'] == file:
+                  droidlist.remove(item)
+                  break
+      if self.puidblacklist:
+         sys.stderr.write("Note: Using puid blacklists.\n")
+      if self.zerobytefiles:
+         sys.stderr.write("Note: Using zero byte file blacklists.\n")
+         
    #primary function, create a full list from DROID CSV
    #create a list of IDs belonging to just folders...
-   def detectEmpties(self, csv, pathblacklist, puidblacklist, zerobytefiles):
+   def detectEmpties(self, csv, blacklist):
       droidcsv = droidCSVHandler()
       droidlist = droidcsv.readDROIDCSV(csv)
       folderIDlist = []
@@ -59,7 +64,9 @@ class DetectEmpties:
          if row['TYPE'] == 'Folder':
             folderIDlist.append(row['ID'])
       
-      self.registerblacklists(pathblacklist, puidblacklist, zerobytefiles)
+      if blacklist:
+         self.removeblacklistitems(droidlist, folderIDlist)
+         
       self.recurse_delete(droidlist, folderIDlist)
       self.outputEmptyList()
 

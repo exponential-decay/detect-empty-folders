@@ -18,9 +18,7 @@ def main():
 
    # Just the one argument here, DROID csv... 
    parser.add_argument('--csv', help='Single DROID CSV to read.', default=False, required=True)
-   parser.add_argument('--blfilepath', help='CSV blacklist files to delete.', default=False, required=False)   
-   parser.add_argument('--blpuid', help='CSV blacklist PUIDs to delete.', default=False, required=False)   
-   parser.add_argument('--blzeros', help='Remove zero byte files.', action="store_true")   
+   parser.add_argument('--blacklist', help='Use blacklist file.', action="store_true")   
 
    if len(sys.argv)==1:
       parser.print_help()
@@ -32,7 +30,7 @@ def main():
    
    if args.csv:
       empty = DetectEmpties()
-      empty.detectEmpties(args.csv, args.blfilepath, args.blpuid, args.blzeros)
+      empty.detectEmpties(args.csv, args.blacklist)
    else:
       parser.print_help()
       sys.exit(1)
