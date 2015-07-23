@@ -57,10 +57,12 @@ def main():
    blacklist = args.blacklist
    
    if args.csv:
+      empty = DetectEmpties()
       if blacklist:
          blacklist = readconfig(blacklist)
-      empty = DetectEmpties()
-      empty.detectEmpties(args.csv, blacklist[0], blacklist[1], blacklist[2])
+         empty.detectEmpties(args.csv, blacklist[0], blacklist[1], blacklist[2])
+      else:
+         empty.detectEmpties(args.csv)
    else:
       parser.print_help()
       sys.exit(1)
