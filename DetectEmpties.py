@@ -58,16 +58,20 @@ class DetectEmpties:
          for item in list(droidlist):
             if item['SIZE'] == '0':
                droidlist.remove(item)
+
+   def createFolderList(self, droidlist):
+      folderIDlist = []
+      for row in droidlist:
+         if row['TYPE'] == 'Folder':
+            folderIDlist.append(row['ID'])
+      return folderIDlist
       
    #primary function, create a full list from DROID CSV
    #create a list of IDs belonging to just folders...
    def detectEmpties(self, csv, pathblacklist=False, puidblacklist=False, zerobytefiles=False):
       droidcsv = droidCSVHandler()
       droidlist = droidcsv.readDROIDCSV(csv)
-      folderIDlist = []
-      for row in droidlist:
-         if row['TYPE'] == 'Folder':
-            folderIDlist.append(row['ID'])
+      folderIDlist = self.createFolderList(droidlist)
       
       if pathblacklist or puidblacklist or zerobytefiles:
          self.blacklist = True
