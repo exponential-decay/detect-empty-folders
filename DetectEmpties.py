@@ -84,5 +84,8 @@ class DetectEmpties:
       outputtext = " or its siblings contains zero FILE-objects." + "\n"
       if self.blacklist:
          outputtext = " or its siblings contains or will contain no FILE-objects once blacklist destructions have been implemented." + "\n"
-      for file in self.emptylist:
-         sys.stdout.write(file + outputtext) 
+      if len(self.emptylist) > 0:
+         for file in self.emptylist:
+            sys.stdout.write(file + outputtext) 
+      else:
+         sys.stderr.write("There are no empty folders." + "\n")
