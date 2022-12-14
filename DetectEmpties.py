@@ -1,5 +1,5 @@
 import sys
-from droidcsvhandlerclass import *
+from droidcsvhandlerclass import droidCSVHandler
 
 # Create CSV list, DROIDLIST
 # GRAB 'ALL' PARENT_IDs FROM DROIDLIST
@@ -37,7 +37,7 @@ class DetectEmpties:
                             if row["ID"] == folderid:
                                 folderIDlist.remove(folderid)
 
-        if empties == True:
+        if empties is True:
             self.recurse_delete(droidlist, folderIDlist)
 
     def removedenylistitems(

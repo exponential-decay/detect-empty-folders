@@ -1,11 +1,10 @@
 ﻿"""Detect empty folders script using a DROID file format export.
 """
 
-import os
 import sys
 import argparse
 import configparser as ConfigParser
-from DetectEmpties import *
+from DetectEmpties import DetectEmpties
 
 
 def readconfig(configfile):

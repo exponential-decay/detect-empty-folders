@@ -48,7 +48,6 @@ class droidCSVHandler:
     def removecontainercontents(self, droidlist):
         newlist = []  # naive remove causes loop to skip items
         for row in droidlist:
-            uris = self.getURIScheme(row["URI"])
             if self.getURIScheme(row["URI"]) == "file":
                 newlist.append(row)
         return newlist
