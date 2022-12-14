@@ -15,17 +15,17 @@ def readconfig(configfile):
 
     config = ConfigParser.ConfigParser()
     config.read(configfile)
-    if config.has_section("blacklist"):
-        if config.has_option("blacklist", "filepaths"):
-            configpaths = config.get("blacklist", "filepaths")
+    if config.has_section("denylist"):
+        if config.has_option("denylist", "filepaths"):
+            configpaths = config.get("denylist", "filepaths")
             if configpaths.lower() != "false":
                 paths = configpaths.split(",")
-        if config.has_option("blacklist", "puids"):
-            configpuids = config.get("blacklist", "puids")
+        if config.has_option("denylist", "puids"):
+            configpuids = config.get("denylist", "puids")
             if configpuids.lower() != "false":
                 puids = configpuids.split(",")
-        if config.has_option("blacklist", "zerobytefiles"):
-            zerobytefiles = config.get("blacklist", "zerobytefiles")
+        if config.has_option("denylist", "zerobytefiles"):
+            zerobytefiles = config.get("denylist", "zerobytefiles")
             if zerobytefiles.lower() == "false" or zerobytefiles == "":
                 zerobytes = False
             else:
@@ -38,7 +38,7 @@ def main():
 
     # Usage: --csv          [droid report]
     #        --blfilepath   [path of objects selected for deletion]
-    #        --blpuid       [puids we've blacklisted]
+    #        --blpuid       [puids we've denylisted]
     #        --blzeros      [elect to delete zero byte files, non-records]
     #
     # Handle command line arguments for the script
@@ -51,7 +51,7 @@ def main():
         "--csv", help="Single DROID CSV to read.", default=False, required=True
     )
     parser.add_argument(
-        "--blacklist", help="Use blacklist file.", default=False, required=False
+        "--denylist", help="Use denylist file.", default=False, required=False
     )
 
     if len(sys.argv) == 1:
@@ -62,13 +62,13 @@ def main():
     global args
     args = parser.parse_args()
 
-    blacklist = args.blacklist
+    denylist = args.denylist
 
     if args.csv:
         empty = DetectEmpties()
-        if blacklist:
-            blacklist = readconfig(blacklist)
-            empty.detectEmpties(args.csv, blacklist[0], blacklist[1], blacklist[2])
+        if denylist:
+            denylist = readconfig(denylist)
+            empty.detectEmpties(args.csv, denylist[0], denylist[1], denylist[2])
         else:
             empty.detectEmpties(args.csv)
     else:
